@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <div class="container">
+        <br><br>
+        <form action="#" method="POST" enctype="multipart/form-data">
+            <div class="input-group">
+                <input type="file" class="form-control" name="image_name" required>
+                <select class="form-select" name="violation" required>
+                    <option value="" selected disabled>Select Violation</option>
+                    <option value="speeding">Speeding</option>
+                    <option value="red-light-violation">Red Light Violation</option>
+                    <option value="wrong-number-plate-format">Wrong Number Plate Format</option>
+                </select>
+                <input type="submit" value="Upload" class="btn btn-outline-secondary">
+            </div>
+        </form>
+    </div>
+
+    {% if upload %}
+        <div class="container">
+            <br><br>
+            <table>
+                <tr>
+                    <td>
+                        <img class="rounded float-left img-fluid" src="/static/upload/{{ upload_image }}" alt="">
+                    </td>
+                    <td>
+                        <img class="rounded float-right img-fluid" src="/static/predict/{{ upload_image }}" alt="">
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <table style="border: solid black; width: 100%;">
+                <tr style="border: solid black;">
+                    <th>Number of License Plates Detected = {{ no }}</th>
+                </tr>
+                {% if text %}
+                    <tr style="border: solid black;">
+                        <td>
+                            <select class="form-select" aria-label="Select License Plate">
+                                {% for lic in text %}
+                                    <option>{{ lic }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                {% endif %}
+            </table>
+            <br>
+           
+              
+        </div>
+    {% endif %}
+     
+    <div class="container text-end">
+        <form action="{{ url_for('challans_page') }}" method="GET">
+            <input type="submit" value="Next" class="btn btn-primary" style="margin-top: 10px; background-color: transparent; border-color:black; color: #808080;">
+        </form>
+    </div>
+    
+{% endblock %}
